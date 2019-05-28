@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             LOGIN_REQUEST -> {
                 val (userId, displayName) = data?.extras?.get(LoginActivity.LOGIN_RESULT) as? LoginResult
                     ?: return
+                this.userId = userId
                 shortToast(getString(R.string.welcome).format(displayName))
                 nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text =
                     getString(R.string.welcome).format(displayName)
