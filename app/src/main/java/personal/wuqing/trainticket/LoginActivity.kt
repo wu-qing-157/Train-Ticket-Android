@@ -64,10 +64,10 @@ class LoginActivity : AppCompatActivity() {
                                         setTitle(R.string.login_failed)
                                         setMessage(
                                             when (nameResult.exception) {
-                                                is ConnectException -> R.string.failed_connection_refused
-                                                is SocketTimeoutException -> R.string.failed_connection_timeout
-                                                is SocketSyntaxException -> R.string.failed_bad_return
-                                                else -> R.string.failed_unknown
+                                                is ConnectException -> getString(R.string.failed_connection_refused)
+                                                is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
+                                                is SocketSyntaxException -> getString(R.string.failed_bad_return)
+                                                else -> getString(R.string.failed_unknown).format(nameResult.exception)
                                             }
                                         )
                                         setPositiveButton(R.string.action_accept_bad, null)
@@ -82,11 +82,11 @@ class LoginActivity : AppCompatActivity() {
                                 setTitle(R.string.login_failed)
                                 setMessage(
                                     when (result.exception) {
-                                        is ConnectException -> R.string.failed_connection_refused
-                                        is SocketTimeoutException -> R.string.failed_connection_timeout
-                                        is SocketSyntaxException -> R.string.failed_bad_return
-                                        is LoginFailException -> R.string.failed_password_mismatch
-                                        else -> R.string.failed_unknown
+                                        is ConnectException -> getString(R.string.failed_connection_refused)
+                                        is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
+                                        is SocketSyntaxException -> getString(R.string.failed_bad_return)
+                                        is LoginFailException -> getString(R.string.failed_password_mismatch)
+                                        else -> getString(R.string.failed_unknown).format(result.exception)
                                     }
                                 )
                                 setPositiveButton(R.string.action_accept_bad, null)

@@ -42,4 +42,6 @@
     <string name="action_accept_bad">好的≧ ﹏ ≦</string>
     <string name="action_ok">好啦φ(゜▽゜*)♪</string>
     <string name="action_cancel">算了算了╮(╯▽╰)╭</string>
+    <string name="welcome">你好，%1$s！</string>
+    <string name="display_user_id">用户ID：%1$s</string>
 </resources>

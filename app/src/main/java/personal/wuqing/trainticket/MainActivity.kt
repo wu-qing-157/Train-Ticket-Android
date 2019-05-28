@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +16,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var userId = ""
 
     private fun shortToast(s: CharSequence) = Toast.makeText(this@MainActivity, s, Toast.LENGTH_SHORT).show()
 
@@ -43,8 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        layoutInflater.inflate(R.layout.nav_header_main, nav_view)
-        nav_header_image.setOnClickListener {
+        nav_view.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image).setOnClickListener {
             startActivityForResult(Intent(this, LoginActivity::class.java), LOGIN_REQUEST)
         }
     }
@@ -103,7 +105,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            LOGIN_REQUEST -> shortToast(data?.extras?.get(LoginActivity.LOGIN_RESULT)?.toString() ?: "null returned")
+            LOGIN_REQUEST -> {
+                val (userId, displayName) = data?.extras?.get(LoginActivity.LOGIN_RESULT) as? LoginResult
+                    ?: LoginResult("", "")
+                nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text =
+                    getString(R.string.welcome).format(displayName)
+                nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_subtitle).text =
+                    getString(R.string.display_user_id).format(userId)
+            }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }

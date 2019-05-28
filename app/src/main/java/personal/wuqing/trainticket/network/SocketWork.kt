@@ -12,13 +12,14 @@ object SocketWork {
     fun getResult(s: CharSequence): Result<String> {
         return try {
             val socket = Socket()
-            socket.connect(InetSocketAddress(host, port) as SocketAddress)
+            socket.connect(InetSocketAddress(host, port) as SocketAddress, 3000)
+            socket.soTimeout = 100000
             socket.getOutputStream().write(s.toString().toByteArray())
             socket.shutdownOutput()
             val input = socket.getInputStream()
             val bytes = ByteArray(1048576)
             val len = input.read(bytes)
-            Result.Success(String(bytes, 0, len))
+            Result.Success(String(bytes, 0, len).removeSurrounding("\n"))
         } catch (e: Exception) {
             Result.Error(e)
         }
