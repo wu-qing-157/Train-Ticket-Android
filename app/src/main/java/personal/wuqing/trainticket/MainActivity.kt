@@ -34,10 +34,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -107,7 +103,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (requestCode) {
             LOGIN_REQUEST -> {
                 val (userId, displayName) = data?.extras?.get(LoginActivity.LOGIN_RESULT) as? LoginResult
-                    ?: LoginResult("", "")
+                    ?: return
+                shortToast(getString(R.string.welcome).format(displayName))
                 nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title).text =
                     getString(R.string.welcome).format(displayName)
                 nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_subtitle).text =
