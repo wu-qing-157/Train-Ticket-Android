@@ -2,7 +2,8 @@
 <ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_animator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:inAnimation="@android:anim/fade_in">
 
     <include layout="@layout/login" />
 

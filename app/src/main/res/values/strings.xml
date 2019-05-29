@@ -32,6 +32,8 @@
     <string name="prompt_value_user_id">用户ID将自动生成&#8230;</string>
     <string name="login_failed">登录失败</string>
     <string name="register_failed">注册失败</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_success_info">注册成功，您的用户ID为：%1$s，请牢记</string>
     <string name="failed_password_mismatch">用户名和密码不匹配</string>
     <string name="failed_connection_refused">无法连接到服务器</string>
     <string name="failed_connection_timeout">服务器连接超时</string>

@@ -1,10 +1,10 @@
 package personal.wuqing.trainticket.ui
 
-import android.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.content.Context
 
-fun Context.alert(build: AlertDialog.Builder.() -> Unit) {
-    val builder = AlertDialog.Builder(this)
+fun Context.alert(build: MaterialAlertDialogBuilder.() -> Unit) {
+    val builder = MaterialAlertDialogBuilder(this)
     builder.build()
     builder.show()
 }

@@ -1,7 +1,6 @@
-package personal.wuqing.trainticket.data
+package personal.wuqing.trainticket.network
 
-import personal.wuqing.trainticket.network.SocketSyntaxException
-import personal.wuqing.trainticket.network.SocketWork
+import personal.wuqing.trainticket.data.Result
 
 fun login(userId: String, password: String): Result<String> =
     when (val result = SocketWork.getResult("login $userId $password")) {

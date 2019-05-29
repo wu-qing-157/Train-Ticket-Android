@@ -8,7 +8,7 @@ import java.net.SocketAddress
 
 object SocketWork {
     private const val host = "dhc.moe"
-    private const val port = 8081
+    private const val port = 5009
     fun getResult(s: CharSequence): Result<String> {
         return try {
             val socket = Socket()
