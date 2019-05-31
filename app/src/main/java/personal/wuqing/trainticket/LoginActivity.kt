@@ -2,17 +2,15 @@ package personal.wuqing.trainticket
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.register.*
 import personal.wuqing.trainticket.data.Result
 import personal.wuqing.trainticket.network.*
+import personal.wuqing.trainticket.ui.afterTextChanged
 import personal.wuqing.trainticket.ui.alert
 import java.io.Serializable
 import java.net.ConnectException
@@ -205,15 +203,3 @@ class LoginActivity : AppCompatActivity() {
 }
 
 data class LoginResult(val userId: String, val username: String) : Serializable
-
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
-}

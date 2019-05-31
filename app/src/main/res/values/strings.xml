@@ -7,12 +7,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_query">查询车次</string>
+    <string name="menu_ordered">已购车票</string>
+    <string name="menu_account">我的账户</string>
+    <string name="menu_other">其他</string>
     <string name="title_activity_login">登录</string>
     <string name="prompt_user_id">用户 ID</string>
     <string name="prompt_password">密码</string>
@@ -46,4 +44,25 @@
     <string name="action_cancel">算了算了╮(╯▽╰)╭</string>
     <string name="welcome">你好，%1$s！</string>
     <string name="display_user_id">用户ID：%1$s</string>
+    <string name="prompt_depart">出发站</string>
+    <string name="direction">Direction</string>
+    <string name="prompt_depart_date">出发日期</string>
+    <string name="prompt_arrive">到达站</string>
+    <string name="prompt_station_keyword">查询关键字（中文、全拼、简拼）</string>
+    <string name="date_format">%1$4d-%2$02d-%3$02d</string>
+    <string name="invalid_station">请输入正确的车站名</string>
+    <string name="invalid_date">请使用日期选择器输入日期（或按YYYY-MM-DD格式输入）</string>
+    <string name="action_query_ticket">查询车次</string>
+    <string name="forward_desc">to</string>
+    <string name="date_and_time">%1$s %2$s</string>
+    <string name="failed_query_ticket_no_match">没有找到对应的车次</string>
+    <string name="display_num">余%1$d张</string>
+    <string name="catalog_and_name">%1$c %2$s</string>
+    <string name="title_activity_buy_ticket">购买车票</string>
+    <string name="prompt_num">购买数量</string>
+    <string name="action_buy">购买</string>
+    <string name="minus_desc">减</string>
+    <string name="plus_desc">加</string>
+    <string name="one">1</string>
+    <string name="display_price">￥%1$s</string>
 </resources>

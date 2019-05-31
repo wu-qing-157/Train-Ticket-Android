@@ -19,6 +19,7 @@ object SocketWork {
             val input = socket.getInputStream()
             val bytes = ByteArray(1048576)
             val len = input.read(bytes)
+            socket.close()
             Result.Success(String(bytes, 0, len).removeSurrounding("\n"))
         } catch (e: Exception) {
             Result.Error(e)

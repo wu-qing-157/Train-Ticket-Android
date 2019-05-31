@@ -1,8 +1,11 @@
 package personal.wuqing.trainticket
 
 import org.junit.Test
+import personal.wuqing.trainticket.data.PriceAndNum
+import personal.wuqing.trainticket.data.SingleTicket
 import personal.wuqing.trainticket.network.ResultRegex
 import personal.wuqing.trainticket.network.SocketWork
+import java.io.ObjectOutputStream
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +15,12 @@ import personal.wuqing.trainticket.network.SocketWork
 class SocketTest {
     @Test
     fun login() {
-        println(SocketWork.getResult("login 12345 abcdef", ResultRegex.LOGIN))
+        println(personal.wuqing.trainticket.network.login("1234", "abcdef"))
+    }
+
+    @Test
+    fun write() {
+        val output = ObjectOutputStream(System.out)
+        output.writeObject(SingleTicket("", "", "", "", "", "", "", "", listOf(PriceAndNum("", 1.2, 3))))
     }
 }
