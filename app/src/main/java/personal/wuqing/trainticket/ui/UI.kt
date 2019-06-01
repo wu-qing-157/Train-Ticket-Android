@@ -8,10 +8,11 @@ import androidx.annotation.StringRes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 
-fun Context.alert(build: MaterialAlertDialogBuilder.() -> Unit) {
+fun Context.alert(build: MaterialAlertDialogBuilder.() -> Unit): MaterialAlertDialogBuilder {
     val builder = MaterialAlertDialogBuilder(this)
     builder.build()
     builder.show()
+    return builder
 }
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {

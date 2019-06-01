@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.query_ticket.*
 import kotlinx.android.synthetic.main.station_select.view.*
 import personal.wuqing.trainticket.data.Result
@@ -28,6 +29,7 @@ import personal.wuqing.trainticket.ui.alert
 import personal.wuqing.trainticket.ui.inflateTicketInfoCard
 import personal.wuqing.trainticket.ui.reportValidity
 import java.net.ConnectException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,7 +38,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var userId = ""
+    var userId = ""
 
     private fun shortToast(s: CharSequence) = Toast.makeText(this@MainActivity, s, Toast.LENGTH_SHORT).show()
 
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         nav_view.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image).setOnClickListener {
-            startActivityForResult(Intent(this, LoginActivity::class.java), LOGIN_REQUEST)
+            launchLogin()
         }
 
         nav_view.setCheckedItem(R.id.nav_query)
@@ -105,6 +107,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    fun launchLogin() = startActivityForResult(Intent(this, LoginActivity::class.java), LOGIN_REQUEST)
+
     data class Catalog(val tag: Char, val name: String, val default: Boolean)
 
     private fun reportValidity() {
@@ -133,7 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 is Result.Error -> query_ticket_view_animator.post {
                     query_ticket_view_animator.displayedChild = 1
                     query_ticket_info.text = when (result.exception) {
-                        is ConnectException -> getString(R.string.failed_connection_refused)
+                        is ConnectException, is SocketException -> getString(R.string.failed_connection_refused)
                         is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
                         is SocketSyntaxException -> getString(R.string.failed_bad_return)
                         is QuertTicketNoMatchException -> getString(R.string.failed_query_ticket_no_match)
@@ -204,8 +208,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_query -> {
+                view_animator.displayedChild = 0
             }
             R.id.nav_ordered -> {
+                if (userId == "") launchLogin()
+                view_animator.displayedChild = 1
             }
             R.id.nav_account -> {
             }

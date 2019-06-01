@@ -14,6 +14,7 @@ import personal.wuqing.trainticket.ui.afterTextChanged
 import personal.wuqing.trainticket.ui.alert
 import java.io.Serializable
 import java.net.ConnectException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
@@ -102,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
             setTitle(R.string.login_failed)
             setMessage(
                 when (exception) {
-                    is ConnectException -> getString(R.string.failed_connection_refused)
+                    is ConnectException, is SocketException -> getString(R.string.failed_connection_refused)
                     is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
                     is SocketSyntaxException -> getString(R.string.failed_bad_return)
                     is LoginFailException -> getString(R.string.failed_password_mismatch)
@@ -153,7 +154,7 @@ class LoginActivity : AppCompatActivity() {
             setTitle(R.string.register_failed)
             setMessage(
                 when (exception) {
-                    is ConnectException -> getString(R.string.failed_connection_refused)
+                    is ConnectException, is SocketException -> getString(R.string.failed_connection_refused)
                     is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
                     is SocketSyntaxException -> getString(R.string.failed_bad_return)
                     is RegisterFailException -> getString(R.string.failed_register_rejected)

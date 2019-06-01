@@ -65,4 +65,11 @@
     <string name="plus_desc">加</string>
     <string name="one">1</string>
     <string name="display_price">￥%1$s</string>
+    <string name="invalid_num">至少购买1张</string>
+    <string name="failed_buy_ticket_rejected">购买失败，请重试</string>
+    <string name="buy_ticket_failed">购买失败</string>
+    <string name="buy_ticket_success">购买成功</string>
+    <string name="action_refund">退票</string>
+    <string name="refund_desc">退票</string>
+    <string name="confirm_refund">确认退订以下车票？</string>
 </resources>

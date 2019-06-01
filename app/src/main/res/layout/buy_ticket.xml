@@ -209,4 +209,15 @@
         app:layout_constraintEnd_toStartOf="@+id/buy"
         app:layout_constraintTop_toTopOf="@+id/buy" />
 
+    <ProgressBar
+        android:id="@+id/buy_loading"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/buy_num"
+        app:layout_constraintEnd_toEndOf="@+id/buy"
+        app:layout_constraintStart_toStartOf="@+id/minus" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
