@@ -9,7 +9,7 @@ import personal.wuqing.trainticket.data.OrderedTicket
 
 fun MainActivity.inflateOrderedTicket(info: OrderedTicket, root: ViewGroup) {
     val layout = LinearLayout(this)
-    layoutInflater.inflate(R.layout.ordered_info, root)
+    layoutInflater.inflate(R.layout.ordered_info, layout)
     layout.train_name.text = info.trainName
     layout.depart_station.text = info.departStation
     layout.arrive_station.text = info.arriveStation
@@ -28,4 +28,5 @@ fun MainActivity.inflateOrderedTicket(info: OrderedTicket, root: ViewGroup) {
             setNegativeButton(R.string.action_cancel, null)
         }
     }
+    root.addView(layout)
 }
