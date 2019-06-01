@@ -73,4 +73,8 @@
     <string name="refund_desc">退票</string>
     <string name="confirm_refund">确认退订以下车票？</string>
     <string name="failed_query_order_no_match">没有查询到您购买的车票</string>
+    <string name="display_ordered_num">%1$d张</string>
+    <string name="refund_success">退订以下车票成功</string>
+    <string name="refund_failed">退订失败</string>
+    <string name="failed_refund_rejected">退订失败，请重试</string>
 </resources>

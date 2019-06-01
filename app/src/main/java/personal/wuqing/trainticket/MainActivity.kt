@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun launchLogin() = startActivityForResult(Intent(this, LoginActivity::class.java), LOGIN_REQUEST)
 
-    private fun updateOrderedTicket() =
+    fun updateOrderedTicket() =
         if (userId == "") {
             query_ordered_info.visibility = View.INVISIBLE
             ordered_list.visibility = View.INVISIBLE
@@ -122,9 +122,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         result.data.forEach { inflateOrderedTicket(it, ordered_list) }
                     }
                     is Result.Error -> runOnUiThread {
-                        query_ordered_info.visibility = View.INVISIBLE
+                        query_ordered_info.visibility = View.VISIBLE
                         ordered_list.visibility = View.INVISIBLE
-                        ordered_list.removeAllViews()
                         query_ticket_info.text = when (result.exception) {
                             is ConnectException, is SocketException -> getString(R.string.failed_connection_refused)
                             is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
