@@ -18,16 +18,12 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.query_ordered.*
 import kotlinx.android.synthetic.main.query_ticket.*
 import kotlinx.android.synthetic.main.station_select.view.*
 import personal.wuqing.trainticket.data.Result
-import personal.wuqing.trainticket.network.QuertTicketNoMatchException
-import personal.wuqing.trainticket.network.SocketSyntaxException
-import personal.wuqing.trainticket.network.queryTicket
-import personal.wuqing.trainticket.ui.afterTextChanged
-import personal.wuqing.trainticket.ui.alert
-import personal.wuqing.trainticket.ui.inflateTicketInfoCard
-import personal.wuqing.trainticket.ui.reportValidity
+import personal.wuqing.trainticket.network.*
+import personal.wuqing.trainticket.ui.*
 import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException
@@ -44,6 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         const val LOGIN_REQUEST = 1
+        const val BUY_TICKET_REQUEST = 2
+        const val REFUND_TICKET_REQUEST = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,6 +106,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun launchLogin() = startActivityForResult(Intent(this, LoginActivity::class.java), LOGIN_REQUEST)
+
+    private fun updateOrderedTicket() =
+        if (userId == "") {
+            query_ordered_info.visibility = View.INVISIBLE
+            ordered_list.visibility = View.INVISIBLE
+            ordered_list.removeAllViews()
+        } else {
+            Thread {
+                when (val result = queryOrdered(userId)) {
+                    is Result.Success -> runOnUiThread {
+                        query_ordered_info.visibility = View.INVISIBLE
+                        ordered_list.visibility = View.VISIBLE
+                        ordered_list.removeAllViews()
+                        result.data.forEach { inflateOrderedTicket(it, ordered_list) }
+                    }
+                    is Result.Error -> runOnUiThread {
+                        query_ordered_info.visibility = View.INVISIBLE
+                        ordered_list.visibility = View.INVISIBLE
+                        ordered_list.removeAllViews()
+                        query_ticket_info.text = when (result.exception) {
+                            is ConnectException, is SocketException -> getString(R.string.failed_connection_refused)
+                            is SocketTimeoutException -> getString(R.string.failed_connection_timeout)
+                            is SocketSyntaxException -> getString(R.string.failed_bad_return)
+                            is QueryOrderedEmptyException -> getString(R.string.failed_query_order_no_match)
+                            else -> getString(R.string.failed_unknown, result.exception)
+                        }
+                    }
+                }
+            }.start()
+        }
 
     data class Catalog(val tag: Char, val name: String, val default: Boolean)
 
@@ -234,7 +262,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_header_subtitle).text =
                     getString(R.string.display_user_id).format(userId)
                 nav_view.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image).setOnClickListener(null)
+                updateOrderedTicket()
             }
+            BUY_TICKET_REQUEST -> updateOrderedTicket()
+            REFUND_TICKET_REQUEST -> updateOrderedTicket()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }

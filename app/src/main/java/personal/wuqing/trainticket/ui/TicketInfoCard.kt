@@ -29,11 +29,12 @@ fun MainActivity.inflateTicketInfoCard(info: SingleTicket, root: ViewGroup) {
             if (userId == "") {
                 launchLogin()
             } else {
-                startActivity(
+                startActivityForResult(
                     Intent(this, BuyTicketActivity::class.java)
                         .putExtra(BuyTicketActivity.SINGLE_TICKET, info)
                         .putExtra(BuyTicketActivity.PRICE_AND_NUM, item)
-                        .putExtra(BuyTicketActivity.USER_ID, userId)
+                        .putExtra(BuyTicketActivity.USER_ID, userId),
+                    MainActivity.REFUND_TICKET_REQUEST
                 )
             }
         }

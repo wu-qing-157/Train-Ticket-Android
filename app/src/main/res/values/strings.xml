@@ -72,4 +72,5 @@
     <string name="action_refund">退票</string>
     <string name="refund_desc">退票</string>
     <string name="confirm_refund">确认退订以下车票？</string>
+    <string name="failed_query_order_no_match">没有查询到您购买的车票</string>
 </resources>

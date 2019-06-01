@@ -24,6 +24,7 @@ fun MainActivity.inflateOrderedTicket(info: OrderedTicket, root: ViewGroup) {
             inflateOrderedTicket(info, dialogLayout)
             setView(dialogLayout)
             setPositiveButton(R.string.action_ok) { _, _ ->
+                // TODO
             }
             setNegativeButton(R.string.action_cancel, null)
         }
